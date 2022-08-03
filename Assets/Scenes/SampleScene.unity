@@ -5488,7 +5488,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -10070,11 +10070,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8730609255233607562, guid: 25ace6958a2970145b9bbe672f748848, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.17
+      value: 8.22
       objectReference: {fileID: 0}
     - target: {fileID: 8730609255233607562, guid: 25ace6958a2970145b9bbe672f748848, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.15
+      value: 3.112
       objectReference: {fileID: 0}
     - target: {fileID: 8730609255233607562, guid: 25ace6958a2970145b9bbe672f748848, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10111,6 +10111,14 @@ PrefabInstance:
     - target: {fileID: 8730609255233607566, guid: 25ace6958a2970145b9bbe672f748848, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730609255233607606, guid: 25ace6958a2970145b9bbe672f748848, type: 3}
+      propertyPath: m_Radius
+      value: 0.5726066
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730609255233607606, guid: 25ace6958a2970145b9bbe672f748848, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.38603395
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ace6958a2970145b9bbe672f748848, type: 3}

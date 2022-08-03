@@ -49,6 +49,26 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("move", false);
         }
+
+        if (Input.GetButtonDown("Fire3")) //Teletransporte
+        {
+            Vector3 move2 = new Vector3(Input.GetAxis("Horizontal") + 5, y: 0f, z: 0f);
+            _rigidbody2D.transform.position += move * (Time.deltaTime * speed + 5);
+        }
+        
+        if (Input.GetButtonDown("Fire1")) //Dash
+        {
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                Vector2 move3 = new Vector2(Input.GetAxis("Horizontal") + 5, y: 0f);
+                _rigidbody2D.AddForce(move3 * 10, ForceMode2D.Impulse);
+            }
+            else
+            {
+                Vector2 move4 = new Vector2(Input.GetAxis("Horizontal") - 5, y: 0f);
+                _rigidbody2D.AddForce(move4 * 10, ForceMode2D.Impulse);
+            }
+        }
         
     }
 

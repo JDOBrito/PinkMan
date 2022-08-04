@@ -145,4 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69363f324a7a8f43bb38196705af406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPrefab: {fileID: 1475964798841097732, guid: 6815899db7e28b24aa72b5dc51e03e27, type: 3}
+  prefabCrashBox: {fileID: 1475964798841097732, guid: 6815899db7e28b24aa72b5dc51e03e27, type: 3}

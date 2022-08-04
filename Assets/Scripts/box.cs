@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class box : MonoBehaviour
 {
-    public GameObject myPrefab;
+    public GameObject prefabCrashBox;
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -20,7 +20,7 @@ public class box : MonoBehaviour
     IEnumerator crash()
     {
         yield return new WaitForSeconds(1f);
-        var boxCrashs = Instantiate(myPrefab,gameObject.transform.parent);
+        var boxCrashs = Instantiate(prefabCrashBox,gameObject.transform.parent);
         boxCrashs.transform.position = new Vector3(
             gameObject.transform.position.x+1, 
             gameObject.transform.position.y, 

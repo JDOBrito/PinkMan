@@ -12,7 +12,7 @@ public class Crashbox : MonoBehaviour
     {
         for (int i = 0; i < pieces.Length; i++)
         {
-            pieces[i].gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(Random.onUnitSphere * 200);
+            pieces[i].gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(Random.onUnitSphere * 400);
         }
         StartCoroutine(clean());
     }

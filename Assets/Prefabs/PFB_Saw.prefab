@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2842683251260718535}
   - component: {fileID: 2842683251260718552}
   m_Layer: 9
-  m_Name: Saw
+  m_Name: PFB_Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

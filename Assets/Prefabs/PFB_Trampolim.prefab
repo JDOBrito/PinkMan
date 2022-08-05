@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4477753593396535426}
   - component: {fileID: 4477753593396535425}
   m_Layer: 0
-  m_Name: Trampolim
+  m_Name: PFB_Trampolim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

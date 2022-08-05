@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 1475964798841097730}
   - component: {fileID: 1475964798841097733}
   m_Layer: 0
-  m_Name: CrashBox
+  m_Name: PFB_CrashBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

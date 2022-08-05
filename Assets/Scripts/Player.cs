@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float speed, jumpForce;
+    [SerializeField] private float speed, jumpForce, teleport;
 
     public bool jumpStart, jumpDouble;
+    private bool dash;
 
     public Collision2D colisor;
 
@@ -30,46 +31,75 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), y: 0f, z: 0f);
-        _rigidbody2D.transform.position += move * (Time.deltaTime * speed);
-
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            anim.SetBool("move", true);
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        }
+        float move = Input.GetAxis("Horizontal");
         
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            anim.SetBool("move", true);
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-        }
-        
-        if (Input.GetAxis("Horizontal") == 0)
-        {
-            anim.SetBool("move", false);
-        }
-
-        if (Input.GetButtonDown("Fire3")) //Teletransporte
-        {
-            Vector3 move2 = new Vector3(Input.GetAxis("Horizontal") + 5, y: 0f, z: 0f);
-            _rigidbody2D.transform.position += move * (Time.deltaTime * speed + 5);
-        }
+        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), y: 0f, z: 0f);
+        //_rigidbody2D.transform.position += move * (Time.deltaTime * speed);
         
         if (Input.GetButtonDown("Fire1")) //Dash
         {
-            if (Input.GetAxis("Horizontal") > 0)
+            speed = 50f;
+            dash = true;
+        } 
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            speed = 8f;
+            dash = false;
+            anim.SetBool("dash", false);
+        }
+
+        if (Input.GetButtonDown("Fire3")) //Teleport
+        {
+            if (move > 0)
             {
-                Vector2 move3 = new Vector2(Input.GetAxis("Horizontal") + 5, y: 0f);
-                _rigidbody2D.AddForce(move3 * 10, ForceMode2D.Impulse);
+                _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + teleport, _rigidbody2D.position.y);
+            }
+            else if (move < 0)
+            {
+                _rigidbody2D.position = new Vector2(_rigidbody2D.position.x - teleport, _rigidbody2D.position.y);
+            }
+        }
+
+        _rigidbody2D.velocity = new Vector2(move * speed, _rigidbody2D.velocity.y);
+        
+        if (move > 0)
+        {
+            if (dash == false)
+            {
+                anim.SetBool("move", true);
             }
             else
             {
-                Vector2 move4 = new Vector2(Input.GetAxis("Horizontal") - 5, y: 0f);
-                _rigidbody2D.AddForce(move4 * 10, ForceMode2D.Impulse);
+                anim.SetBool("dash", true);
+            }
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        }
+
+        if (move < 0)
+        {
+            if (dash == false)
+            {
+                anim.SetBool("move", true);
+            }
+            else
+            {
+                anim.SetBool("dash", true);
+            }
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+        }
+
+        if (move == 0)
+        {
+            if (dash == false)
+            {
+                anim.SetBool("move", false);
+            }
+            else
+            {
+                anim.SetBool("move", true);
+                anim.SetBool("dash", true);
             }
         }
-        
     }
 
     private void Jump()

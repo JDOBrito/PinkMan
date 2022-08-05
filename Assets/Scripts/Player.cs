@@ -189,7 +189,8 @@ public class Player : MonoBehaviour
         if (colisor.gameObject.layer == layerOpt) //SAW
         {
             anim.SetBool(animator, option);
-            //game over ou reiniciar a fase
+            GameController.instance.CallGameOverScreen();
+            Destroy(gameObject);
         }
     }
 

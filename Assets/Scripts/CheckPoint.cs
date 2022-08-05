@@ -13,6 +13,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            SoundController.Instance.PlaySound(1);
             SceneManager.LoadScene(m_SceneToLoadName);
         }
     }

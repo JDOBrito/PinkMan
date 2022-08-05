@@ -108,6 +108,7 @@ public class Player : MonoBehaviour
         {
             if (!jumpStart)
             {
+                SoundController.Instance.PlaySound(1);
                 _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 jumpDouble = true;
                 anim.SetBool("jump", true);
@@ -116,6 +117,7 @@ public class Player : MonoBehaviour
             {
                 if (jumpDouble)
                 {
+                    SoundController.Instance.PlaySound(1);
                     _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                     jumpDouble = false;
                     anim.SetBool("doubleJump", true);

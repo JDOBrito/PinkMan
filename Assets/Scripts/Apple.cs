@@ -33,7 +33,7 @@ public class Apple : MonoBehaviour
             sr.enabled=false;
             circle.enabled=false;
             colllected.SetActive(true);
-
+            SoundController.Instance.PlaySound(2);
             GameController.instance.totalScore+=score;
             GameController.instance.UpdateScoreText();
             Destroy(gameObject, 0.2f);

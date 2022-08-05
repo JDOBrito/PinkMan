@@ -33,6 +33,7 @@ public class FallingPlatfom : MonoBehaviour
         }
         else
         {
+            SoundController.Instance.PlaySound(4);
             Destroy(gameObject);
         }
     }

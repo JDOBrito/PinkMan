@@ -25,6 +25,7 @@ public class box : MonoBehaviour
             gameObject.transform.position.x+1, 
             gameObject.transform.position.y, 
             gameObject.transform.position.z);
+        SoundController.Instance.PlaySound(3);
         Destroy(gameObject);
     }
     

@@ -16,6 +16,7 @@ public class LoadSceneOnButton : MonoBehaviour
 
     public void ReloadScene()
     {
+        SoundController.Instance.PlaySound(5);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
   

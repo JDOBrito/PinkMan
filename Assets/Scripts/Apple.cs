@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Apple : MonoBehaviour
 {
     public GameObject colllected;
     private SpriteRenderer sr;
     private CircleCollider2D circle;
-    
+    private int score=10;
 
 
     // Start is called before the first frame update
@@ -32,6 +33,9 @@ public class Apple : MonoBehaviour
             sr.enabled=false;
             circle.enabled=false;
             colllected.SetActive(true);
+
+            GameController.instance.totalScore+=score;
+            GameController.instance.UpdateScoreText();
             Destroy(gameObject, 0.2f);
 
         }

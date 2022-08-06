@@ -214,8 +214,13 @@ public class Player : MonoBehaviour
         if (direction > 0)
         {
             float posPlayer = _rigidbody2D.position.x + teleport;
-            if (posPlayer <= 14.35662f)
+            if (posPlayer <= 14.34)
             {
+                _rigidbody2D.position = new Vector2(posPlayer, _rigidbody2D.position.y);
+            }
+            else
+            {
+                posPlayer = _rigidbody2D.position.x;
                 _rigidbody2D.position = new Vector2(posPlayer, _rigidbody2D.position.y);
             }
         }
@@ -223,8 +228,13 @@ public class Player : MonoBehaviour
         if (direction < 0)
         {
             float posPlayer = _rigidbody2D.position.x - teleport;
-            if (posPlayer >= -14.35662f)
+            if (posPlayer >= -14.34)
             {
+                _rigidbody2D.position = new Vector2(posPlayer, _rigidbody2D.position.y);
+            }
+            else
+            {
+                posPlayer = _rigidbody2D.position.x;
                 _rigidbody2D.position = new Vector2(posPlayer, _rigidbody2D.position.y);
             }
         }

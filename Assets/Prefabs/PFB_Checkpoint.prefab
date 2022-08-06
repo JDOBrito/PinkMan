@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 497761903}
   - component: {fileID: 497761904}
   m_Layer: 8
-  m_Name: CheckPoint
+  m_Name: PFB_Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5173427885646707043}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

@@ -6,63 +6,60 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private PlayersInput actions;
     [SerializeField] private float speed, jumpForce, teleport;
 
     public bool jumpStart, jumpDouble;
     private bool dash;
+    private float direction;
 
     public Collision2D colisor;
 
     private Rigidbody2D _rigidbody2D;
 
     private Animator anim;
-    
+
+    void Awake()
+    {
+        actions = new PlayersInput();
+
+        actions.Player.Movement.performed += ctx => Movement(ctx.ReadValue<Vector2>());
+        actions.Player.Movement.canceled += _ => Movement(Vector2.zero);
+
+        actions.Player.Jump.performed += _ => Jump();
+        
+        actions.Player.SpeedRun.performed += _ => SpeedRun();
+        
+        actions.Player.Teleport.performed += _ => Teleport();
+    }
+
+    private void OnEnable()
+    {
+        actions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        actions.Disable();
+    }
+
     void Start()
     {
         TryGetComponent(out _rigidbody2D);
         anim = GetComponent<Animator>();
     }
     
-    void Update()
+    void FixedUpdate()
     {
-        Movement();
-        Jump();
+        _rigidbody2D.velocity = new Vector2(direction * speed, _rigidbody2D.velocity.y);
     }
 
-    private void Movement()
+    private void Movement(Vector2 valueDirection)
     {
-        float move = Input.GetAxis("Horizontal");
-        
-        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), y: 0f, z: 0f);
-        //_rigidbody2D.transform.position += move * (Time.deltaTime * speed);
-        
-        if (Input.GetButtonDown("Fire1")) //Dash
-        {
-            speed = 50f;
-            dash = true;
-        } 
-        else if (Input.GetButtonUp("Fire1"))
-        {
-            speed = 8f;
-            dash = false;
-            anim.SetBool("dash", false);
-        }
 
-        if (Input.GetButtonDown("Fire3")) //Teleport
-        {
-            if (move > 0)
-            {
-                _rigidbody2D.position = new Vector2(_rigidbody2D.position.x + teleport, _rigidbody2D.position.y);
-            }
-            else if (move < 0)
-            {
-                _rigidbody2D.position = new Vector2(_rigidbody2D.position.x - teleport, _rigidbody2D.position.y);
-            }
-        }
+        direction = valueDirection.x;
 
-        _rigidbody2D.velocity = new Vector2(move * speed, _rigidbody2D.velocity.y);
-        
-        if (move > 0)
+        if (direction > 0)
         {
             if (dash == false)
             {
@@ -70,12 +67,14 @@ public class Player : MonoBehaviour
             }
             else
             {
+                anim.SetBool("move", true);
                 anim.SetBool("dash", true);
             }
+
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
 
-        if (move < 0)
+        if (direction < 0)
         {
             if (dash == false)
             {
@@ -83,12 +82,14 @@ public class Player : MonoBehaviour
             }
             else
             {
+                anim.SetBool("move", true);
                 anim.SetBool("dash", true);
             }
+
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
-        if (move == 0)
+        if (direction == 0)
         {
             if (dash == false)
             {
@@ -96,35 +97,32 @@ public class Player : MonoBehaviour
             }
             else
             {
-                anim.SetBool("move", true);
-                anim.SetBool("dash", true);
+                anim.SetBool("dash", false);
+                anim.SetBool("move", false);
             }
         }
     }
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (!jumpStart)
         {
-            if (!jumpStart)
+            SoundController.Instance.PlaySound(1);
+            _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpDouble = true;
+            anim.SetBool("jump", true);
+        }
+        else
+        {
+            if (jumpDouble)
             {
                 SoundController.Instance.PlaySound(1);
                 _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                jumpDouble = true;
-                anim.SetBool("jump", true);
+                jumpDouble = false;
+                anim.SetBool("doubleJump", true);
             }
-            else
-            {
-                if (jumpDouble)
-                {
-                    SoundController.Instance.PlaySound(1);
-                    _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                    jumpDouble = false;
-                    anim.SetBool("doubleJump", true);
-                }
-            }
-            
         }
+            
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -194,6 +192,50 @@ public class Player : MonoBehaviour
             GameController.instance.CallGameOverScreen();
             Destroy(gameObject);
         }
+    }
+
+    void SpeedRun()
+    {
+        if (speed <= 8) //Dash
+        {
+            speed = 50f;
+            dash = true;
+        } 
+        else
+        {
+            speed = 8f;
+            dash = false;
+            anim.SetBool("dash", false);
+            anim.SetBool("move", false);
+        }
+    }
+
+    void Teleport(){
+        if (direction > 0)
+        {
+            float posPlayer = _rigidbody2D.position.x + teleport;
+            if (posPlayer <= 14.35662f)
+            {
+                _rigidbody2D.position = new Vector2(posPlayer, _rigidbody2D.position.y);
+            }
+        }
+        
+        if (direction < 0)
+        {
+            float posPlayer = _rigidbody2D.position.x - teleport;
+            if (posPlayer >= -14.35662f)
+            {
+                _rigidbody2D.position = new Vector2(posPlayer, _rigidbody2D.position.y);
+            }
+        }
+        /*if (teleportBool == true)
+        {
+            teleportBool = false;
+        }
+        else if (teleportBool == false)
+        {
+            teleportBool = true;
+        }*/
     }
 
 }

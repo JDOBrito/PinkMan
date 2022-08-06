@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Apple : MonoBehaviour
 {
-    public GameObject colllected;
-    private SpriteRenderer sr;
+    private Animator AnimApple;
     private CircleCollider2D circle;
     private int score=10;
 
@@ -14,15 +13,9 @@ public class Apple : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sr=GetComponent<SpriteRenderer>();
         circle=GetComponent<CircleCollider2D>();
+        AnimApple = GetComponent<Animator>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
 
@@ -30,9 +23,8 @@ public class Apple : MonoBehaviour
 
         if(other.gameObject.tag=="Player"){
 
-            sr.enabled=false;
+            AnimApple.Play("Apple_Collected");
             circle.enabled=false;
-            colllected.SetActive(true);
             SoundController.Instance.PlaySound(2);
             GameController.instance.totalScore+=score;
             GameController.instance.UpdateScoreText();
@@ -41,6 +33,5 @@ public class Apple : MonoBehaviour
         }
         
     }
-
-
+    
 }
